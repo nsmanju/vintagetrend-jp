@@ -1,26 +1,13 @@
 name: Build Windows exe
-
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
-
+on: [push, workflow_dispatch]
 jobs:
   build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Install SQLite
-        run: choco install sqlite -y --no-progress
-      
-      - name: Build trend_engine.exe
-        shell: bash
-        run: |
-          g++ engine/trend_engine.cpp -lsqlite3 -o engine/trend_engine.exe
-          ls -lh engine/
-      
-      - name: Upload artifact
+      - name: Build exe
+        run: g++ engine/trend_engine.cpp -o engine/trend_engine.exe
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: trend_engine-windows

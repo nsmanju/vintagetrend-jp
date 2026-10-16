@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><title>Vintage Japan Trends</title>
+<style>
+body{font-family:sans-serif; max-width:800px; margin:auto; padding:20px}
+.card{border:1px solid #ddd; padding:12px; margin:10px 0; border-radius:8px; background:#fafafa}
+</style>
+</head>
+<body>
+<h2>Vintage Japan - Daily Trends</h2>
+<div id="list">Loading...</div>
+<script>
+function esc(s){const d=document.createElement('div'); d.textContent=s; return d.innerHTML;}
+fetch('/api/trends').then(r=>r.json()).then(d=>{
+  if(d.length===0){document.getElementById('list').innerHTML='No data'; return;}
+  document.getElementById('list').innerHTML = d.map(x=>
+    `<div class=card><b>${esc(x.title)}</b><br>Source: ${esc(x.source)} | Count: ${x.count} | Avg: ¥${x.avg_price}</div>`).join('')
+});
+</script>
+</body></html>

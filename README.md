@@ -1,23 +1,23 @@
-# Vintage Japan Trend Bot - 10 Items
+# Vintage Japan Trends — Private 10 Items
 
-Private Japan-only vintage tracker.
+🔒 Private | Japan-only | JPY
 
-Sources: Yahoo Auctions / 【entity-Mercari¦canonical_name=Mercari】 / Rakuma via Buyee
-Currency: JPY
-Items: 10 vintage pieces (501s, Trucker Jackets, Walkmans)
+![Build](https://github.com/nsmanju/vintagetrend-jp/actions/workflows/build.yml/badge.svg)
 
-## Run (Ubuntu)
-./run_bot.sh
-python dashboard/app.py
-Open http://localhost:5000
+Sources: Yahoo Auctions / Mercari / Rakuma via Buyee proxies
+Engine: C++ SQLite trend engine (offline)
+Dashboard: Flask — http://localhost:5000
 
-## Run (Windows)
-run_bot.bat
-python dashboard/app.py
+## 10 Items (Current)
+- Levi's 501s Vintage x3 (502, LVC, Big E)
+- Type I, II, III Trucker Jackets
+- Sony TPS-L2, WM-D6C Walkman
+- Vintage Band Tees
+- Red Wing 875
 
-## Architecture
-scrapers/ -> data/vintage.db -> engine/trend_engine (C++ sqlite) -> dashboard/trends.json -> Flask
-Engine logs off, dashboard persists.
+## Quick Start
+Ubuntu: `./run_bot.sh` then `python dashboard/app.py`
+Windows: Place `trend_engine.exe` from Actions artifact into `engine/`, then `run_bot.bat`
 
-## Privacy
-Private repo - Japan data only
+## Distribution
+Pen drive: `engine/trend_engine.exe` + full repo

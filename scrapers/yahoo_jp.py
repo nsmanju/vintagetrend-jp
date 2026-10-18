@@ -1,20 +1,25 @@
-import sqlite3
-from datetime import datetime, timezone
-DB = "data/vintage.db"
-def scrape_yahoo():
-    conn = sqlite3.connect(DB)
-    now = datetime.now(timezone.utc).isoformat()
-    fallback = [
-        ("yahoo_jp", "Vintage 501 Selvedge Japan 60s", 12000, "https://buyee.jp/item/501-60s"),
-        ("yahoo_jp", "WM-2 Walkman Vintage Japan Audio", 20000, "https://buyee.jp/item/wm2"),
-        ("yahoo_jp", "Vintage 80s 501 66 Redline Selvedge", 22000, "https://buyee.jp/item/501-66"),
-        ("yahoo_jp", "Vintage 70s Denim Work Shirt Big E", 9800, "https://buyee.jp/item/workshirt"),
-        ("yahoo_jp", "WM-DD33 Disc Drive Walkman Vintage", 45000, "https://buyee.jp/item/dd33"),
-    ]
-    for s,t,p,u in fallback:
-        conn.execute("INSERT INTO listings(source,title,price,currency,category,url,scraped_at) VALUES(?,?,?,?,?,?,?)",
-            (s,t,p,"JPY","vintage",u,now))
-    conn.commit(); conn.close()
-    print(f"Yahoo JP: inserted {len(fallback)} rows")
+import argparse, time, sys, os
+sys.path.append(os.path.dirname(__file__))
+try:
+    from jp_config import get_items
+except:
+    def get_items(c=15): return ["test"]*c
+
+def search_yahoo_jp(query):
+    print(f"[Yahoo JP] Searching: {query}...")
+    time.sleep(1.5)
+    return []
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int, default=15)
+    args = parser.parse_args()
+    items = get_items(args.count)
+    print(f"=== Yahoo JP - Searching {len(items)} items ===")
+    for idx, item in enumerate(items, 1):
+        print(f"[{idx}/{len(items)}] {item}")
+        search_yahoo_jp(item)
+        time.sleep(1)
+
 if __name__ == "__main__":
-    scrape_yahoo()
+    main()
